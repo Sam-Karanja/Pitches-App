@@ -10,22 +10,22 @@ def index():
     pitches = [
         {
             'category':'Motivation',
-            'author': {'username': 'John'},
+            'author': 'John',
             'body': 'Motivation is what keeps you going it cane be positive or negative!'
         },
         {
             'category':'Interview',
-            'author': {'username': 'Susan'},
+            'author':'Susan',
             'body': 'The Avengers movie was so cool!'
         },
         {
             'category':'Promotion',
-            'author':{'username':'Samuel'},
+            'author':'Samuel',
             'body':'Take time to ptomote people in life'
         },
         {
             'category':'Interview',
-            'author':{'username':'Khan'},
+            'author':'Khan',
             'body':'Interviews makes you strong'
         }
     ]  
