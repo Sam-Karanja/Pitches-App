@@ -1,15 +1,12 @@
-{%if title%}
-<title>{{title}} - One minute  pitches</title>
-%else%
-<title>One minute Pitches</title>
-{%endif%}
-<body>
+{%extends "base.html"}
+
+{%block content%}
     {%for pitch in pitches%}
     <div>
-        <p>{{pitch.category}} <br>
+        <h5>{{pitch.category}} <h5>
             {{pitch.body}} <br> Written by:
             {{pitch.author}}
         </p>
     </div>
     {%endfor%}
-</body>
+{%endblock%}
