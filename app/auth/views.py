@@ -3,13 +3,13 @@ from turtle import title
 from flask import redirect, render_template,redirect, url_for, flash, request
 from importlib_metadata import email
 from flask_login import login_user
-from app import auth
+from app import main
 from ..models import User
 from .forms import RegistrationForm, LoginForm
 from ..import db
 
 
-@auth.route('/register', methods['GET', 'POST'])
+@main.route('/register', methods['GET', 'POST'])
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
@@ -22,7 +22,7 @@ def register():
 
     return render_template('auth/register.html', registration_form = form)
 
-@auth.route('/login', methods['GET', 'POST'])
+@main.route('/login', methods['GET', 'POST'])
 def login():
     login_form = LoginForm()
     if login_form.validate_on_submit():
