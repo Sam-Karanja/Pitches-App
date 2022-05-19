@@ -1,32 +1,37 @@
+from crypt import methods
+from tkinter.tix import Form
+from turtle import title
 from unicodedata import category
-from flask import render_template
-from app import app
+from flask import redirect, render_template, url_for
+from flask_login import current_user, login_required
+from app.main.forms import Pitchform
+from app.models import Pitch
+from . import main
 
 
-@app.route('/')
-@app.route('/index')
+@main.route('/')
 def index():
-    user = {'username' 'Sam'}
-    pitches = [
-        {
-            'category':'Motivation',
-            'author': 'John',
-            'body': 'Motivation is what keeps you going it cane be positive or negative!'
-        },
-        {
-            'category':'Interview',
-            'author':'Susan',
-            'body': 'The Avengers movie was so cool!'
-        },
-        {
-            'category':'Promotion',
-            'author':'Samuel',
-            'body':'Take time to ptomote people in life'
-        },
-        {
-            'category':'Interview',
-            'author':'Khan',
-            'body':'Interviews makes you strong'
-        }
-    ]  
-    return render_template('index.html',user = user,pitches = pitches)
+    motivation_pitch = Pitch.get_pitches('motivation').all()
+    promotion_pitch = Pitch.get_pitches('promotion').all()
+    technology_pitch = Pitch.get_pitches('technology').all()
+    religion_pitch = Pitch.get_pitches('religion').all()
+
+    title = 'Home - One Minute Pitch'
+    return render_template('index.html',title=title, motivation=motivation_pitch,promotion=promotion_pitch,technology=technology_pitch,religion=religion_pitch)
+
+
+@main.route('/pitch/new/<int:id>',methods = ['GET',"POST"])
+@login_required
+def create_pitch(id):
+   form = Pitchform()
+   #Pitch = get_pitches(id)
+   if form.validate_on_submit():
+       title = form.title.data
+       content = form.content.data
+       category = form.category.data
+
+       new_pitch = Pitch(title = title, content=content,category = category,user = current_user)
+       new_pitch.save_pitch()
+       return redirect(url_for('main.index' ))
+
+   return render_template('new_pitch.html', form=form)
