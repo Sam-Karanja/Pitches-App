@@ -11,18 +11,19 @@ from . import main
 
 @main.route('/')
 def index():
-    motivation_pitch = Pitch.get_pitches('category').all()
-    promotion_pitch = Pitch.get_pitches('category').all()
-    technology_pitch = Pitch.get_pitches('category').all()
-    religion_pitch = Pitch.get_pitches('category').all()
+pitches = Pitch.query.all()
+    motivation_pitch = Pitch.query.filter_by('motivation').all()
+    promotion_pitch = Pitch.query.filter_by('promotion').all()
+    technology_pitch = Pitch.query.filter_by('technology').all()
+    religion_pitch = Pitch.query.filter_by('religion').all()
 
     title = 'Home - One Minute Pitch'
     return render_template('index.html',title=title, motivation=motivation_pitch,promotion=promotion_pitch,technology=technology_pitch,religion=religion_pitch)
 
 
-@main.route('/pitch/new/<int:id>',methods = ['GET',"POST"])
+@main.route('/pitch_new',methods = ['GET',"POST"])
 @login_required
-def create_pitch(id):
+def create_pitch():
    form = Pitchform()
    #Pitch = get_pitches(id)
    if form.validate_on_submit():
