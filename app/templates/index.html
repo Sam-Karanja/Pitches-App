@@ -1,27 +1,44 @@
+{%extends "base.html"%}
 {% import 'macros.html' as macro%}
-
-{% block styles%} {{ super() }}
+{% import 'bootstrap/wtf.html' as wtf%}
+{% block styles%}
+ {{ super() }}
 <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}" />
-
 {% endblock %} 
 
 {% block content%} 
+<div class="container">
 
-{% for pitch in pitches%}
-<div>
-  <h3>Pitches</h3>
-  <div class="container tab-pane fade" id="motivation">
-    {{macro.displayPitch(motivation)}}
-  </div>
-  <div class="container tab-pane fade" id="promotion">
-    {{macro.displayPitch(promotion)}}
-  </div>
-  <div class="container tab-pane fade" id="religion">
-    {{macro.displayPitch(religion)}}
-  </div>
-  <div class="container tab-pane fade" id="technology">
-    {{macro.displayPitch(technology)}}
+  <div class="row">
+      <div class="card">
+          <div class="card-body">
+              <h3>One Minute Impression </h3>
+              <p>In life, you only have 60 seconds to impress someone. 1 minute can make or break you. <br>
+                   How do we make sure that you use your 1 minute to actually say something meaningful?</p>
+
+                   <h3>Use a minute to create a Pitch to impress someone Or View already Existing pitches</h3>
+           
+          </div>
+
+      </div>
   </div>
 </div>
-{%endfor%}
+
+  {% for pitch in pitch%}
+  <div class="col-md-4">
+  <div class="card">
+      <div class="card-body bg-danger" >
+     <h5> category: <b>{{pitch.category}}</b></h5>
+     <p> {{pitch.content}}</p>
+      <b>posted by {{pitch.user.username |capitalize}} on {{pitch.time_posted.strftime('%y-%m-%d')}} </b> 
+      <br>
+      <button> <a href=" {{url_for('main.index')}} ">comment</a> </button>
+
+   
+     </div>
+     </div>
+  </div>
+  {%endfor%}
+
+
 {%endblock%}
