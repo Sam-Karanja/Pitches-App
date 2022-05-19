@@ -1,6 +1,3 @@
-import string
-import turtle
-import down
 from sqlalchemy  import Column, false
 from . import db,login_manager
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -69,7 +66,7 @@ class User(UserMixin,db.Model):
         '''
 
         @classmethod
-        def get_ptches(cls,id):
+        def get_pitches(cls,id):
             pitches = Pitch.query.filetr_by(pitch_id = id).all()
             return pitches
 
